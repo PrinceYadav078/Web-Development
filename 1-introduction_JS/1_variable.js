@@ -12,13 +12,13 @@
 // a=true
 // console.log(a)
 
-// a=null
-// console.log(a)
+a=null
+console.log(a)
 
-// //data types in javascript- Number, string, boolean
+//data types in javascript- Number, string, boolean
 
-// var b=2.3 // as anumber
-// var c='d'
+var b=2.3 // as anumber
+var c='d'
 
 
 var flag=true

@@ -1,0 +1,16 @@
+//SPLIT
+
+let str='pepcoder'
+
+let partsofstring=str.split('c')
+//SPLIT FUNCTION WILL SPLIT A STRING ACCORDING TO A PASSED PARAMETER
+//AND WILL RETURN THE LEFT AND THE RIGHT PART IN AN ARRAY
+console.log(partsofstring) //[pep, oder]
+
+//JOIN
+
+let joinstring=partsofstring.join('c')
+//JOIN FUNCTION WILL TAKE AN ARRAY AND IT WILL FILL THE PARAMETER AFTER EACH ELEMENT
+// OF THE ARRAY WITH THE PASSED PARAMETER
+// AND WILL RETURN THE COMPLETE STR
+console.log(joinstring) // JOINED STR (pepcoder)

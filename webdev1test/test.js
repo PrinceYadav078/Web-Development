@@ -200,7 +200,7 @@
 // console.log(member.getLastName?.());
 
 // A: undefined undefined undefined undefined
-// B: Mara undefined Lydia Hallie ReferenceError
+// B: Mara undefined Lydia Hallie ReferenceError   **********************************
 // C: Mara null Lydia Hallie null
 // D: null ReferenceError null ReferenceError
 
@@ -292,7 +292,7 @@
 // console.log(nums(1, 2));
 
 // A: a is bigger, 6 and b is bigger, 3
-// B: a is bigger, undefined and b is bigger, undefined  *****
+// B: a is bigger, undefined and b is bigger, undefined  ***************************
 // C: undefined and undefined
 // D: SyntaxError
 
@@ -307,7 +307,7 @@
 // for (const [x, y] of Object.entries(person)) {
 //   console.log(x, y);
 // }
-// A: name Lydia and age 21
+// A: name Lydia and age 21 *******************
 // B: ["name", "Lydia"] and ["age", 21]
 // C: ["name", "age"] and undefined
 // D: Error
@@ -370,7 +370,7 @@
 
 // console.log(admin);
 // A: { admin: true, user: { name: "Lydia", age: 21 } }
-// B: { admin: true, name: "Lydia", age: 21 }
+// B: { admin: true, name: "Lydia", age: 21 }          *************************notsure
 // C: { admin: true, user: ["Lydia", 21] }
 // D: { admin: true }
 

@@ -44,10 +44,10 @@ let str='pepcoders'
 
 
 // CONCATENATION (CONCAT METHOD)-:
-// let firstString= 'hello'
-// let secondstring='ayush'
-// let concatenation=firstString.concat(" bhai ",secondstring)
-// console.log(concatenation)
+let firstString= 'hello'
+let secondstring='ayush'
+let concatenation=firstString.concat(" bhai ",secondstring)
+console.log(concatenation)
 
 // Trim method is used to remove all whitespaces
 

@@ -11,7 +11,7 @@ console.log("before")
 let browserwillbelaunchedpromise = puppeteer.launch({
     headless: false,
     deafaultViewport: null,
-    args: ['--start-maximized',]
+    args: ["--start-maximized"],
 })
 
 browserwillbelaunchedpromise.then(function (browserinstance) {
@@ -51,6 +51,7 @@ browserwillbelaunchedpromise.then(function (browserinstance) {
  }).then(function(questionsarr){
      console.log('no. of ques-> '+questionsarr.length)
      let questionwillbesolvedpromise=questionsolver(page,questionsarr[1],codefile.answers[0])
+    
 
  })
 
@@ -72,8 +73,54 @@ function questionsolver(page,question,answer){
     return new Promise(function(resolve,reject){
         let questionwillbeclicked=question.click()
         questionwillbeclicked.then(function(){
-            // let answertype=page.waitForSelector()
+            let waitforeditor=waitAndClick('.hr-monaco-base-editor.showUnused',page)
+            return waitforeditor
+
+        }).then(function(){
+            return waitAndClick('.checkbox-input', page)
+        }).then(function(){
+            return page.waitForSelector(".text-area.custominput")
+        }).then(function(){
+            return page.type(".text-area.custominput",answer,{delay:5})
+        }).then(function(){
+            let ctrlisholdpromise=page.keyboard.down("Control")
+            return ctrlisholdpromise
+        }).then(function(){
+            let Aispressedpromise=page.keyboard.press("A",{delay:50})
+            return Aispressedpromise
+        }).then(function(){
+            let Xispressedpromise=page.keyboard.press("X",{delay:50})
+            return Xispressedpromise
+        }).then(function(){
+            let ctrlisreleasepromise=page.keyboard.up("Control")
+            return ctrlisreleasepromise
+        }).then(function(){
+            let waitforeditor=waitAndClick('.hr-monaco-base-editor.showUnused',page)
+            return waitforeditor
+        }).then(function(){
+            let ctrlisholdpromise=page.keyboard.down("Control")
+            return ctrlisholdpromise
+        }).then(function(){
+            let Aispressedpromise=page.keyboard.press("A",{delay:50})
+            return Aispressedpromise
+        }).then(function(){
+            let Vispressedpromise=page.keyboard.press("V",{delay:50})
+            return Vispressedpromise
+        }).then(function(){
+            let ctrlisreleasepromise=page.keyboard.up("Control")
+            return ctrlisreleasepromise
+        }).then(function(){
+            let runbuttonclicked=page.click(".hr-monaco__run-code",{delay:20})
+        }).then(function(){
+            resolve()
+        }).catch(function(err){
+            console.log(err)                
+        }).then(function(){
+            let submitbuttonclicked=page.click(".hr-monaco-submit",{delay:20})
+
         })
+             
+        
     })
 }
 

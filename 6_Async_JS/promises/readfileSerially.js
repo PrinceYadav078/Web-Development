@@ -1,8 +1,11 @@
-let fs =require("fs")
+let fs = require("fs")
 
-// console.log("before")
+console.log("before")
+for(let i=0; i<10; i++){
+    fs.readFile('f1.txt', cb1)
 
-// fs.readFile('f1.txt',cb1)
+}
+
 
 
 
@@ -30,7 +33,7 @@ let fs =require("fs")
 //         console.log(err)
 //     }else {
 //         console.log('I am data f3-> '+data)
-        
+
 //     }
 // }
 
@@ -40,26 +43,26 @@ let fs =require("fs")
 
 
 
-let f1p= fs.promises.readFile('f1.txt')
+// let f1p= fs.promises.readFile('f1.txt')
 
-let f2p= fs.promises.readFile('f2.txt')
+// let f2p= fs.promises.readFile('f2.txt')
 
-let f3p= fs.promises.readFile('f3.txt')
+// let f3p= fs.promises.readFile('f3.txt')
 
 
-function cb(data){
-    console.log('File Data-> '+data)
-    
-    f2p.then(function(data){
-        console.log('file data-> '+data)
-        f3p.then(function(data){
-            console.log('file data-> '+data)
-        })
+// function cb(data){
+//     console.log('File Data-> '+data)
 
-    })
-    
+//     f2p.then(function(data){
+//         console.log('file data-> '+data)
+//         f3p.then(function(data){
+//             console.log('file data-> '+data)
+//         })
 
-}
+//     })
 
-f1p.then(cb)
+
+// }
+
+// f1p.then(cb)
 

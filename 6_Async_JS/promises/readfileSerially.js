@@ -1,13 +1,8 @@
 let fs = require("fs")
 
 console.log("before")
-for(let i=0; i<10; i++){
-    fs.readFile('f1.txt', cb1)
 
-}
-
-
-
+fs.readFile('f1.txt', cb1)
 
 // function cb1(err, data){
 //         if(err){

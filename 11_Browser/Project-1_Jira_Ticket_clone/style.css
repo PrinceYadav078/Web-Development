@@ -115,6 +115,9 @@ body{
     display: flex;
     gap: 2rem;
     justify-content: center;
+    padding: 2rem;
+    flex-wrap:wrap ;
+    
 }
 .ticket-cont{
     height: 10rem;
@@ -123,7 +126,7 @@ body{
 }
 .ticket-color{
     height: 1rem;
-    background-color: black;
+   
 }
 .ticket-id{
     height: 2rem;

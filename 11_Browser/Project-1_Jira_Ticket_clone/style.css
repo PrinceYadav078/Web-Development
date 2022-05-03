@@ -133,7 +133,15 @@ body{
     background-color:aqua;
 }
 .task-area{
-    height: calc(100% - 1rem - 2rem);
+    height: calc(100% - 1rem - 2rem - 2rem);
     font-size: 1.5rem;
     padding: 5px;
+}
+
+.lock-ticket{
+   font-size: 1.5rem;
+    display: flex;
+    justify-content:flex-end;
+    margin-right: 5px;
+
 }

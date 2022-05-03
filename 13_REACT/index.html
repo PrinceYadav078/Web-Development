@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+</head>
+
+<body>
+
+    <div id="root">
+
+    </div>
+
+</body>
+
+<script type="text/babel">
+    // let ele = document.createElement('h1')
+    // ele.innerText = 'Hello'
+
+    // let root = document.querySelector("#root")
+
+    // root.appendChild(ele)
+
+
+    // let ele= React.createElement('h1' ,{
+
+    //     children : ['Hello']
+
+    // })
+
+
+
+    //JSX
+
+    function Child({ name, age, marks }) {
+        return (
+            <React.Fragment>
+            <h1>Hello {name}</h1>
+                <h2>{age}</h2>
+                <h3>{marks}</h3>
+            </React.Fragment>
+        )
+    }
+
+    function Child2({ place }) {
+        return (
+            <h1>Good Bye {place}</h1>
+        )
+    }
+
+    function Parent() {
+        return (
+            <React.Fragment>
+                <Child name='Shweta' age='20' marks='90' />
+                <Child2 place='Delhi' />
+                <Child name='Steve' />
+                <Child2 place='mumbai'/>
+            </React.Fragment>
+
+        )
+    }
+
+    ReactDOM.render(<Parent />, document.querySelector('#root'))
+
+
+
+</script>
+
+</html>

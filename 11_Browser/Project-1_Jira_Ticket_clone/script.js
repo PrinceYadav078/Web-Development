@@ -12,8 +12,56 @@ let taskareacont = document.querySelector('.textarea-cont')
 let removbtn = document.querySelector('.remove-btn')
 let rmvflag = false
 
-let lockClass='fa-lock'
-let unlockClass='fa-lock-open'
+let toolBoxColors = document.querySelectorAll('.color')
+
+let lockClass = 'fa-lock'
+let unlockClass = 'fa-lock-open'
+
+let ticketArr = [] // which store all the tickets object
+
+// GET ALL TICKETS FROM LOCAL STORAGE
+
+if(localStorage.getItem('tickets')){
+    ticketArr=JSON.parse(localStorage.getItem('tickets'))
+    ticketArr.forEach(function(ticket){
+        createTicket(ticket.ticketColor, ticket.ticketTask, ticket.ticketId)
+    })
+}
+
+// FILTER TICKETS WITH RESPECT TO COLORS
+
+for (let i = 0; i < toolBoxColors.length; i++) {
+    toolBoxColors[i].addEventListener('click', function (e) {
+        let currentToolBoxColor = toolBoxColors[i].classList[0]
+        // console.log(currentToolBoxColor)
+        let filteredTickets = ticketArr.filter(function (ticketobj) {
+            return currentToolBoxColor === ticketobj.ticketColor
+        })
+
+        //remove previous ticket
+        let allTickets = document.querySelectorAll('.ticket-cont')
+        for (let i = 0; i < allTickets.length; i++) {
+            allTickets[i].remove()
+        }
+
+        filteredTickets.forEach(function (filteredobj) {
+            createTicket(filteredobj.ticketColor, filteredobj.ticketTask, filteredobj.ticketId)
+        })
+    })
+
+    toolBoxColors[i].addEventListener('dblclick', function (e) {
+        let allTickets = document.querySelectorAll('.ticket-cont')
+        for (let i = 0; i < allTickets.length; i++) {
+            allTickets[i].remove()
+        }
+
+        ticketArr.forEach(function(ticketObj){
+            createTicket(ticketObj.ticketColor, ticketObj.ticketTask, ticketObj.ticketId)
+        })
+
+
+    })
+}
 
 addbtn.addEventListener('click', function (e) {
     //Display the modal
@@ -44,19 +92,22 @@ allprioritycolors.forEach(function (colorelem) {
 modalcont.addEventListener('keydown', function (e) {
     let key = e.key
     if (key == 'Shift') {
-        createTicket(modalPriorityColor, taskareacont.value, shortid())
+        createTicket(modalPriorityColor, taskareacont.value,)
         modalcont.style.display = 'none'
         addflag = false
         taskareacont.value = ''
     }
 })
 
-function createTicket(ticketkacolorclass, task, ticketId) {
+function createTicket(ticketColor, ticketTask, ticketId) {
+
+    let id = ticketId || shortid()
+
     let ticketcont = document.createElement('div')
     ticketcont.setAttribute('class', 'ticket-cont')
-    ticketcont.innerHTML = `<div class="ticket-color ${ticketkacolorclass} "></div>
-    <div class="ticket-id">#${ticketId}</div>
-    <div class="task-area">${task}</div>
+    ticketcont.innerHTML = `<div class="ticket-color ${ticketColor} "></div>
+    <div class="ticket-id">#${id}</div>
+    <div class="task-area">${ticketTask}</div>
     <div class="lock-ticket"><i class="fa-solid fa-lock"></i></div>`
 
     maincont.appendChild(ticketcont)
@@ -64,7 +115,14 @@ function createTicket(ticketkacolorclass, task, ticketId) {
 
     handleLock(ticketcont)
 
-    
+    if (!ticketId) {
+        ticketArr.push({ ticketColor, ticketTask, ticketId: id })
+        localStorage.setItem('tickets', JSON.stringify(ticketArr))
+    }
+
+
+
+
 
 }
 
@@ -86,23 +144,23 @@ function handleRemoval(ticket) {
 
 // LOCK AND UNLOCK TICKETS
 
-function handleLock(ticket){
-    let ticketLockElem= ticket.querySelector('.lock-ticket')
-    let ticketTaskArea= ticket.querySelector('.task-area')
+function handleLock(ticket) {
+    let ticketLockElem = ticket.querySelector('.lock-ticket')
+    let ticketTaskArea = ticket.querySelector('.task-area')
 
-    let ticketLock=ticketLockElem.children[0]
+    let ticketLock = ticketLockElem.children[0]
 
-    ticketLock.addEventListener('click', function(e){
-        if(ticketLock.classList.contains(lockClass)){
+    ticketLock.addEventListener('click', function (e) {
+        if (ticketLock.classList.contains(lockClass)) {
             ticketLock.classList.remove(lockClass)
             ticketLock.classList.add(unlockClass)
-            ticketTaskArea.setAttribute('contenteditable' , 'true')
+            ticketTaskArea.setAttribute('contenteditable', 'true')
             handleBandColor(ticket)
 
-        }else{
+        } else {
             ticketLock.classList.remove(unlockClass)
             ticketLock.classList.add(lockClass)
-            ticketTaskArea.setAttribute('contenteditable' , 'false')
+            ticketTaskArea.setAttribute('contenteditable', 'false')
 
         }
     })
@@ -110,18 +168,18 @@ function handleLock(ticket){
 }
 
 
-function handleBandColor(ticket){
-    let ticketColorBand=ticket.querySelector('.ticket-color')
-    ticketColorBand.addEventListener('click' , function(e){
-        let currentTicketColor= ticketColorBand.classList[1]
+function handleBandColor(ticket) {
+    let ticketColorBand = ticket.querySelector('.ticket-color')
+    ticketColorBand.addEventListener('click', function (e) {
+        let currentTicketColor = ticketColorBand.classList[1]
 
-        let currentTicketColoridx=colors.findIndex(function(color){
+        let currentTicketColoridx = colors.findIndex(function (color) {
             return currentTicketColor === color
         })
-        
+
         currentTicketColoridx++
 
-        let newTicketColoridx=currentTicketColoridx%colors.length
+        let newTicketColoridx = currentTicketColoridx % colors.length
         let newTicketColor = colors[newTicketColoridx]
 
         ticketColorBand.classList.remove(currentTicketColor)

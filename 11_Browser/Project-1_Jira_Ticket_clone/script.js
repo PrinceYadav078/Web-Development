@@ -111,7 +111,7 @@ function createTicket(ticketColor, ticketTask, ticketId) {
     <div class="lock-ticket"><i class="fa-solid fa-lock"></i></div>`
 
     maincont.appendChild(ticketcont)
-    handleRemoval(ticketcont)
+    handleRemoval(ticketcont, id)
 
     handleLock(ticketcont)
 
@@ -134,11 +134,18 @@ removbtn.addEventListener('click', function () {
         removbtn.style.color = ''
     }
 })
-function handleRemoval(ticket) {
+function handleRemoval(ticket, id) {
     ticket.addEventListener('click', function () {
-        if (rmvflag == true) {
-            ticket.remove()
-        }
+        if (!rmvflag) return
+        
+        let idx=getTicketIdx(id) //idx
+
+        //localStorage removal of ticket
+        ticketArr.splice(idx, 1)
+        let strTicketArray= JSON.stringify(ticketArr)
+        localStorage.setItem('tickets' , strTicketArray)
+        
+        ticket.remove()
     })
 }
 
@@ -185,4 +192,12 @@ function handleBandColor(ticket) {
         ticketColorBand.classList.remove(currentTicketColor)
         ticketColorBand.classList.add(newTicketColor)
     })
+}
+
+function getTicketIdx(id){
+    let ticketIdx=ticketArr.findIndex(function(ticketObj){
+        return ticketObj.ticketIdn === id
+    })
+
+    return ticketIdx
 }

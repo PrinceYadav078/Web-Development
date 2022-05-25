@@ -151,13 +151,14 @@ function handleRemoval(ticket, id) {
 
 // LOCK AND UNLOCK TICKETS
 
-function handleLock(ticket) {
+function handleLock(ticket , id) {
     let ticketLockElem = ticket.querySelector('.lock-ticket')
     let ticketTaskArea = ticket.querySelector('.task-area')
 
     let ticketLock = ticketLockElem.children[0]
 
     ticketLock.addEventListener('click', function (e) {
+        let ticketIdx=getTicketIdx(id)
         if (ticketLock.classList.contains(lockClass)) {
             ticketLock.classList.remove(lockClass)
             ticketLock.classList.add(unlockClass)
@@ -170,15 +171,20 @@ function handleLock(ticket) {
             ticketTaskArea.setAttribute('contenteditable', 'false')
 
         }
+
+        ticketArr[ticketIdx].ticketTask=ticketTaskArea.innerText
+        localStorage.setItem('tickets',JSON.stringify(ticketArr))
     })
 
 }
 
 
-function handleBandColor(ticket) {
+function handleBandColor(ticket , id) {
     let ticketColorBand = ticket.querySelector('.ticket-color')
     ticketColorBand.addEventListener('click', function (e) {
         let currentTicketColor = ticketColorBand.classList[1]
+
+        let ticketIdx=getTicketIdx(id)
 
         let currentTicketColoridx = colors.findIndex(function (color) {
             return currentTicketColor === color
@@ -191,6 +197,8 @@ function handleBandColor(ticket) {
 
         ticketColorBand.classList.remove(currentTicketColor)
         ticketColorBand.classList.add(newTicketColor)
+        ticketArr[ticketIdx].ticketColor=newTicketColor
+        localStorage.setItem('tickets',JSON.stringify(ticketArr))
     })
 }
 

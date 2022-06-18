@@ -93,7 +93,7 @@ export class Movieslist extends Component {
     return (
       <React.Fragment>
         <div>
-          <h3><strong>Trending</strong></h3>
+          <h3 ><strong>Trending</strong></h3>
 
         </div>
         <div className='movies-list'>

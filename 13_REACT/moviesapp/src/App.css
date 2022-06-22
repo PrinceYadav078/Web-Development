@@ -100,5 +100,6 @@
 
 .favourites-table{
   padding: 3rem;
+  overflow:auto;
 }
 

@@ -10,6 +10,8 @@ export class Favourites extends Component {
             currgenre: "All genres",
             currText : '',
             movies: [],
+            limit: 5,
+            currpage: 1,
             
         }
 
@@ -82,6 +84,19 @@ export class Favourites extends Component {
             movies : [...temp]
         })
     }
+    handlePagechange=(page)=>{
+        this.setState({
+            currpage:page
+        })
+    }
+    handleDelete=(id)=>{
+        let newarr=[]
+        newarr= this.state.movies.filter((movieObj)=>movieObj.id!=id)
+        this.setState({
+            movies:[...newarr]
+        })
+        localStorage.setItem("movies-app", JSON.stringify(newarr))
+    }
     render() {
 
         let genreids = { 28: 'Action', 12: 'Adventure', 16: 'Animation', 35: 'Comedy', 80: 'Crime', 99: 'Documentary', 18: 'Drama', 10751: 'Family', 14: 'Fantasy', 36: 'History', 27: 'Horror', 10402: 'Music', 9648: 'Mystery', 10749: 'Romance', 878: 'Sci-Fi', 10770: 'TV', 53: 'Thriller', 10752: 'War', 37: 'Western' };
@@ -103,6 +118,17 @@ export class Favourites extends Component {
             filterArr=this.state.movies.filter((moviesObj)=> genreids[moviesObj.genre_ids[0]]==this.state.currgenre)
         }
 
+        let pages =Math.ceil(filterArr.length/this.state.limit)
+        let pagesarr = []
+        for(let i=1; i<=pages;i++){
+            pagesarr.push(i)
+        }
+
+        let si=(this.state.currpage-1)*this.state.limit
+        let ei=si+this.state.limit
+
+        filterArr=filterArr.slice(si,ei)
+
 
 
 
@@ -110,7 +136,7 @@ export class Favourites extends Component {
         return (
             <div className='main'>
                 <div className='row'>
-                    <div className='col-3'>
+                    <div className='col-lg-3 col-sm-12'>
                         <ul class="list-group genre-selector">
                             {
                                 this.state.genres.map((genre) => (
@@ -124,7 +150,7 @@ export class Favourites extends Component {
 
                         </ul>
                     </div>
-                    <div className='col-9 favourites-table'>
+                    <div className='col-lg-9 favourites-table col-sm-12'>
                         <div className='row'>
                             <input
                             placeholder='Search' 
@@ -133,7 +159,7 @@ export class Favourites extends Component {
                             value={this.state.currText} onChange={(e)=> this.setState({currText: e.target.value})}
 
                             />
-                            <input type='number' className="input-group-text col"></input>
+                            <input type='number' className="input-group-text col" value={this.state.limit} onChange={(e)=>this.setState({limit:e.target.value})}></input>
                         </div>
                         <div className='row'>
                             <table class="table">
@@ -157,7 +183,7 @@ export class Favourites extends Component {
                                                 <td>{genreids[movieElem.genre_ids[0]]}</td>
                                                 <td>{movieElem.popularity}</td>
                                                 <td>{movieElem.vote_average}</td>
-                                                <td><button type="button" class="btn btn-danger">Delete</button></td>
+                                                <td><button type="button" class="btn btn-danger" onClick={()=>this.handleDelete(movieElem.id)}>Delete</button></td>
                                             </tr>
 
                                         ))
@@ -170,11 +196,16 @@ export class Favourites extends Component {
                         </div>
                         <nav aria-label="Page navigation example">
                             <ul class="pagination">
-                                <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-                                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                <li class="page-item"><a class="page-link" href="#">Next</a></li>
+                                    
+                                    {
+
+                                    pagesarr.map((page)=>(
+                                        <li class="page-item"><a class="page-link" onClick={()=>this.handlePagechange(page)}>{page}</a></li>
+                                    ))
+                                       
+                                    }
+                                    
+                 
                             </ul>
                         </nav>
                     </div>
